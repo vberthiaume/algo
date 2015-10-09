@@ -6,19 +6,11 @@ using namespace std;
 vector<int> mergeSort(vector<int> &v){
     int iCurSize = v.size();
     if (iCurSize > 2){
-        //vector<int> v1 (&v[0], &v[iCurSize/2-1]);
-        //vector<int> v2 (&v[iCurSize/2], &v[iCurSize-1]);
-
         vector<int> v1(v.begin(), v.begin() + iCurSize/2);
         vector<int> v2(v.begin()+iCurSize/2, v.end());
-
-
         mergeSort(v1); 
         mergeSort(v2); 
         v1.insert(v1.end(), v2.begin(), v2.end());
-        for (auto i : v1){
-            cout << i;
-        }
         cout << endl;
         return v1;
     } else {
