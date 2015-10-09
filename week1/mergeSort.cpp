@@ -1,67 +1,39 @@
 #include <iostream>
 #include <vector>
-
 using namespace std;
 
 vector<int> mergeRecurs(vector<int> &v){
     int iCurSize = v.size();
-    if (iCurSize > 1){
-        vector<int> v1(v.begin(), v.begin() + iCurSize/2);
-        vector<int> v2(v.begin()+iCurSize/2, v.end());
-        mergeRecurs(v1); 
-        mergeRecurs(v2);
-        vector<int> sorted;
-        for (int i=0; i < iCurSize/2; ++i){
-            if (v1[i] <= v2[i]){
-                sorted.push_back(v1[i]);
-                sorted.push_back(v2[i]);
-            } else {
-                sorted.push_back(v2[i]);
-                sorted.push_back(v1[i]);
-            }
-        }
-        for (int i : sorted){
-            cout << i;
-        }
-        cout << "\n";
-        return sorted;
-    } else {
-        //if (v[0] > v[1]){
-        //    int iTemp = v[1];
-        //    v[1] = v[0];
-        //    v[0] = iTemp;
-        //}
-        //cout << v[0] << v[1] << "\n";
+    
+    if (iCurSize <= 1){
         return v;
     }
-}
-vector<int> mergeSort(vector<int> &v){
-    int iCurSize = v.size();
+
     vector<int> v1(v.begin(), v.begin() + iCurSize/2);
     vector<int> v2(v.begin()+iCurSize/2, v.end());
-    mergeRecurs(v1); 
-    mergeRecurs(v2);
-    cout << "v1: ";
-    for (int i : v1){
-        cout << i;
+
+    v1 = mergeRecurs(v1); 
+    v2 = mergeRecurs(v2);
+
+    vector<int> sorted;
+    for (int i=0; i < iCurSize/2; ++i){
+        if (v1[i] <= v2[i]){
+            sorted.push_back(v1[i]);
+            sorted.push_back(v2[i]);
+        } else {
+            sorted.push_back(v2[i]);
+            sorted.push_back(v1[i]);
+        }
     }
-    cout << "\nv2: ";
-    for (int i : v2){
+    for (int i : sorted){
         cout << i;
     }
     cout << "\n";
-    vector<int> fullySorted;
-    for (int i = 0; i < iCurSize/2; ++i){
-        if (v1[i] <= v2[i]){
-            fullySorted.push_back(v1[i]);
-            fullySorted.push_back(v2[i]);
-        } else {
-            fullySorted.push_back(v2[i]);
-            fullySorted.push_back(v1[i]);
-        }
-    }
-    return fullySorted;
+    return sorted;
 }
+
+
+
 
 int main(){
     vector<int> v_in{6,5,4,3,2,8,7,1};
@@ -72,11 +44,12 @@ int main(){
     cout << "\n";
 
 
-    auto v_out = mergeRecurs(v_in);
+    //auto v_out = mergeRecurs(v_in);
+    merge_sort(v_in);
      
     
     cout << "sorted: "; 
-    for (auto i : v_out){
+    for (auto i : v_in){
         cout << i << ",";
     }
     cout << ")\n";
