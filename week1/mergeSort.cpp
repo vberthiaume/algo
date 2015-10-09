@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-vector<int> mergeRecurs(vector<int> &v){
+vector<int> mergeRecurs(vector<int> v){
     int iCurSize = v.size();
     
     if (iCurSize <= 1){
@@ -44,12 +44,12 @@ int main(){
     cout << "\n";
 
 
-    //auto v_out = mergeRecurs(v_in);
-    merge_sort(v_in);
+    auto v_out = mergeRecurs(v_in);
+
      
     
     cout << "sorted: "; 
-    for (auto i : v_in){
+    for (auto i : v_out){
         cout << i << ",";
     }
     cout << ")\n";
