@@ -5,20 +5,25 @@ using namespace std;
 
 vector<int> mergeRecurs(vector<int> &v){
     int iCurSize = v.size();
-    if (iCurSize > 2){
+    if (iCurSize > 1){
         vector<int> v1(v.begin(), v.begin() + iCurSize/2);
         vector<int> v2(v.begin()+iCurSize/2, v.end());
         mergeRecurs(v1); 
-        mergeRecurs(v2); 
-        v1.insert(v1.end(), v2.begin(), v2.end());
-        return v1;
-    } else {
-        if (v[0] > v[1]){
-            int iTemp = v[1];
-            v[1] = v[0];
-            v[0] = iTemp;
+        mergeRecurs(v2);
+        if (v1[0] <= v2[0]){
+            v1.insert(v1.end(), v2.begin(), v2.end());
+            return v1;
+        } else {
+            v2.insert(v2.end(), v1.begin(), v1.end());
+            return v2;
         }
-        cout << v[0] << v[1] << "\n";
+    } else {
+        //if (v[0] > v[1]){
+        //    int iTemp = v[1];
+        //    v[1] = v[0];
+        //    v[0] = iTemp;
+        //}
+        //cout << v[0] << v[1] << "\n";
         return v;
     }
 }
@@ -38,7 +43,7 @@ vector<int> mergeSort(vector<int> &v){
     }
     cout << "\n";
     vector<int> fullySorted;
-    for (int i = 0; i < iCurSize; i+=2){
+    for (int i = 0; i < iCurSize/2; ++i){
         if (v1[i] <= v2[i]){
             fullySorted.push_back(v1[i]);
             fullySorted.push_back(v2[i]);
