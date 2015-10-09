@@ -26,13 +26,13 @@ void mergeRecurs(vector<int> &v){
     int i = 0, j = 0;
     while (i+j < iCurSize){
 
-        if (i < iCurSize/2 && v1[i] <= v2[j]){
+        if (i < v1.size() && v1[i] <= v2[j]){
             v.push_back(v1[i]);
             ++i;
-        } else if (j < iCurSize/2){
+        } else if (j < v2.size()){
             v.push_back(v2[j]);
             ++j;
-        } else if (i < iCurSize/2){
+        } else if (i < v1.size()){
             v.push_back(v1[i]);
             ++i;
         }
@@ -85,7 +85,7 @@ void mergeRecurs(vector<int> &v){
 int main(){
     //vector<int> v_in{6,5,4,3,2,8,7,1};
     
-    vector<int> v_in{6,5,4,3,2,8,7,8,5,4,5,6,7,5,5,5,5};
+    vector<int> v_in{6,5,4,3,2,8,7,8,5,4,5,6,7,5,5,5,5,3};
     cout << "unsorted: ";
     printVec(v_in);
 
