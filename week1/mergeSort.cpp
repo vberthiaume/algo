@@ -10,21 +10,21 @@ vector<int> mergeRecurs(vector<int> &v){
         vector<int> v2(v.begin()+iCurSize/2, v.end());
         mergeRecurs(v1); 
         mergeRecurs(v2);
-        if (v1[0] <= v2[0]){
-            v1.insert(v1.end(), v2.begin(), v2.end());
-            for (int i : v1){
-                cout << i;
+        vector<int> sorted;
+        for (int i=0; i < iCurSize/2; ++i){
+            if (v1[i] <= v2[i]){
+                sorted.push_back(v1[i]);
+                sorted.push_back(v2[i]);
+            } else {
+                sorted.push_back(v2[i]);
+                sorted.push_back(v1[i]);
             }
-            cout << "\n";
-            return v1;
-        } else {
-            v2.insert(v2.end(), v1.begin(), v1.end());
-             for (int i : v2){
-                cout << i;
-            }
-            cout << "\n";
-            return v2;
         }
+        for (int i : sorted){
+            cout << i;
+        }
+        cout << "\n";
+        return sorted;
     } else {
         //if (v[0] > v[1]){
         //    int iTemp = v[1];
@@ -72,7 +72,7 @@ int main(){
     cout << "\n";
 
 
-    auto v_out = mergeSort(v_in);
+    auto v_out = mergeRecurs(v_in);
      
     
     cout << "sorted: "; 
