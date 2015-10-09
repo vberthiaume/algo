@@ -2,56 +2,100 @@
 #include <vector>
 using namespace std;
 
-vector<int> mergeRecurs(vector<int> v){
+void printVec(vector<int> v){
+    for (int i : v){
+        cout << i << ",";
+    }
+    cout << endl;
+}
+
+void mergeRecurs(vector<int> &v){
     int iCurSize = v.size();
     
     if (iCurSize <= 1){
-        return v;
+        return;
     }
 
     vector<int> v1(v.begin(), v.begin() + iCurSize/2);
     vector<int> v2(v.begin()+iCurSize/2, v.end());
 
-    v1 = mergeRecurs(v1); 
-    v2 = mergeRecurs(v2);
+    mergeRecurs(v1); 
+    mergeRecurs(v2);
 
-    vector<int> sorted;
-    for (int i=0; i < iCurSize/2; ++i){
-        if (v1[i] <= v2[i]){
-            sorted.push_back(v1[i]);
-            sorted.push_back(v2[i]);
-        } else {
-            sorted.push_back(v2[i]);
-            sorted.push_back(v1[i]);
+    v.clear();
+    int i = 0, j = 0;
+    while (i+j < iCurSize){
+
+        if (i < iCurSize/2 && v1[i] <= v2[j]){
+            v.push_back(v1[i]);
+            ++i;
+        } else if (j < iCurSize/2){
+            v.push_back(v2[j]);
+            ++j;
+        } else if (i < iCurSize/2){
+            v.push_back(v1[i]);
+            ++i;
         }
     }
-    for (int i : sorted){
-        cout << i;
-    }
-    cout << "\n";
-    return sorted;
+    printVec(v);
 }
 
 
 
+// typedef std::vector<int>::iterator vec_it;
+// void merge(vec_it left, vec_it left_end, vec_it right, vec_it right_end, vec_it numbers)
+// {
+//     while (left != left_end) {
+//         if (*left < *right || right == right_end) {
+//             *numbers = *left;
+//             ++left;
+//         } else {
+//             *numbers = *right;
+//             ++right;
+//         }
+
+//         ++numbers;
+//     }
+
+//     while (right != right_end) {
+//         *numbers = *right;
+//         ++right;
+//         ++numbers;
+//     }
+// }
+
+// void merge_sort(std::vector<int>& numbers)
+// {
+//     if (numbers.size() <= 1) {
+//         return;
+//     }
+
+//     std::vector<int>::size_type middle = numbers.size() / 2;
+//     std::vector<int> left(numbers.begin(), numbers.begin() + middle);
+//     std::vector<int> right(numbers.begin() + middle, numbers.end());
+
+//     merge_sort(left);
+//     merge_sort(right);
+
+//     merge(left.begin(), left.end(), right.begin(), right.end(), numbers.begin());
+// }
+
+
 
 int main(){
-    vector<int> v_in{6,5,4,3,2,8,7,1};
+    //vector<int> v_in{6,5,4,3,2,8,7,1};
+    
+    vector<int> v_in{6,5,4,3,2,8,7,8,5,4,5,6,7,5,5,5,5};
     cout << "unsorted: ";
-    for (int i : v_in){
-        cout << i << ",";
-    }
-    cout << "\n";
+    printVec(v_in);
 
 
-    auto v_out = mergeRecurs(v_in);
-
+    mergeRecurs(v_in);
+    //merge_sort(v_in);
      
     
     cout << "sorted: "; 
-    for (auto i : v_out){
-        cout << i << ",";
-    }
-    cout << ")\n";
+    printVec(v_in);
+    
     return 0;
 }
