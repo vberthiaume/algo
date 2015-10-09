@@ -12,9 +12,17 @@ vector<int> mergeRecurs(vector<int> &v){
         mergeRecurs(v2);
         if (v1[0] <= v2[0]){
             v1.insert(v1.end(), v2.begin(), v2.end());
+            for (int i : v1){
+                cout << i;
+            }
+            cout << "\n";
             return v1;
         } else {
             v2.insert(v2.end(), v1.begin(), v1.end());
+             for (int i : v2){
+                cout << i;
+            }
+            cout << "\n";
             return v2;
         }
     } else {
