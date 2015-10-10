@@ -43,7 +43,7 @@ void mergeSort(vector<int> &v){
             ++i;
         }
     }
-    printVec(v);
+    //printVec(v);
 }
 
 int main(){
