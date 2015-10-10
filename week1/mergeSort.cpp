@@ -2,6 +2,10 @@
 #include <vector>
 using namespace std;
 
+typedef std::vector<int>::iterator vec_it;
+void not_my_merge(vec_it left, vec_it left_end, vec_it right, vec_it right_end, vec_it numbers);
+void not_my_merge_sort(std::vector<int>& numbers);
+
 void printVec(vector<int> v){
     for (int i : v){
         cout << i << ",";
@@ -40,62 +44,45 @@ void mergeRecurs(vector<int> &v){
     printVec(v);
 }
 
-
-
-// typedef std::vector<int>::iterator vec_it;
-// void merge(vec_it left, vec_it left_end, vec_it right, vec_it right_end, vec_it numbers)
-// {
-//     while (left != left_end) {
-//         if (*left < *right || right == right_end) {
-//             *numbers = *left;
-//             ++left;
-//         } else {
-//             *numbers = *right;
-//             ++right;
-//         }
-
-//         ++numbers;
-//     }
-
-//     while (right != right_end) {
-//         *numbers = *right;
-//         ++right;
-//         ++numbers;
-//     }
-// }
-
-// void merge_sort(std::vector<int>& numbers)
-// {
-//     if (numbers.size() <= 1) {
-//         return;
-//     }
-
-//     std::vector<int>::size_type middle = numbers.size() / 2;
-//     std::vector<int> left(numbers.begin(), numbers.begin() + middle);
-//     std::vector<int> right(numbers.begin() + middle, numbers.end());
-
-//     merge_sort(left);
-//     merge_sort(right);
-
-//     merge(left.begin(), left.end(), right.begin(), right.end(), numbers.begin());
-// }
-
-
-
 int main(){
-    //vector<int> v_in{6,5,4,3,2,8,7,1};
-    
     vector<int> v_in{6,5,4,3,2,8,7,8,5,4,5,6,7,5,5,5,5,3};
     cout << "unsorted: ";
     printVec(v_in);
 
-
     mergeRecurs(v_in);
-    //merge_sort(v_in);
+    //not_my_merge_sort(v_in);
      
-    
     cout << "sorted: "; 
     printVec(v_in);
-    
     return 0;
+}
+
+//------------------------------------ NOT MY CODE -----------------------
+void not_my_merge(vec_it left, vec_it left_end, vec_it right, vec_it right_end, vec_it numbers){
+    while (left != left_end) {
+        if (*left < *right || right == right_end) {
+            *numbers = *left;
+            ++left;
+        } else {
+            *numbers = *right;
+            ++right;
+        }
+        ++numbers;
+    }
+    while (right != right_end) {
+        *numbers = *right;
+        ++right;
+        ++numbers;
+    }
+}
+void not_my_merge_sort(std::vector<int>& numbers){
+    if (numbers.size() <= 1) {
+        return;
+    }
+    std::vector<int>::size_type middle = numbers.size() / 2;
+    std::vector<int> left(numbers.begin(), numbers.begin() + middle);
+    std::vector<int> right(numbers.begin() + middle, numbers.end());
+    not_my_merge_sort(left);
+    not_my_merge_sort(right);
+    not_my_merge(left.begin(), left.end(), right.begin(), right.end(), numbers.begin());
 }
